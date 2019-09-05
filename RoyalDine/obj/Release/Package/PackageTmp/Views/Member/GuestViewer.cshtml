@@ -1,0 +1,76 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <title>RoyalDine&trade; | Guest Details</title>
+</head>
+<body>
+    @{
+        string acc_type = ViewBag.AccType;
+    }
+    <nav class="nav navbar-default" style="background-color: maroon;">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="@Url.Action("Home")" style="color: whitesmoke;">RoyalDine&trade;</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="@Url.Action("Home")" style="color:white;">My Meal</a></li>
+                @if (acc_type.Equals("m"))
+                {
+                    <li><a href="@Url.Action("Home", "Manager")" style="color:white;">Manager</a></li>
+                }
+                <li><a href="@Url.Action("ReportViewer")" style="color:white;">Statistics</a></li>
+                <li><a href="@Url.Action("Settings")" style="color:white;">Settings</a></li>
+                <li><a href="@Url.Action("Logout")" style="color:white;">Logout (@ViewBag.MemberName)</a></li>
+            </ul>
+        </div>
+
+    </nav>
+
+    <div class="container">
+        <h1>Guest Details</h1>
+        <br />
+        @(Html.Raw(ViewBag.GuestDetailsData))
+        <p class="text-center"><a href="@Url.Action("Home")">Back to home</a></p>
+    </div>
+
+    <div class="modal fade" id="mealEditor" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3>Modify guest meal</h3>
+                </div>
+                <div class="modal-body">
+                    @using (Ajax.BeginForm("ModifyGuestMeal", new AjaxOptions { OnSuccess = "serverResponse" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="container" style="margin-left: 5%; margin-right: 5%;">
+                            <div class="hidden" id="alertBox"></div>
+                            <div class="hidden" id="dataViewer"></div>
+                        </div>
+                    }
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/gv.js"></script>
+    <script src="~/Scripts/response.js"></script>
+</body>
+</html>

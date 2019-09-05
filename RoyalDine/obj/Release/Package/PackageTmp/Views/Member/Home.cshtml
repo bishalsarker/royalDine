@@ -1,0 +1,208 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <title>RoyalDine&trade; | Home</title>
+</head>
+<body>
+    @{
+        int self = ViewBag.SelfTotal;
+        int guest = ViewBag.GuestTotal;
+        int total = self + guest;
+        string acc_type = ViewBag.AccType;
+    }
+    <nav class="nav navbar-default" style="background-color: maroon;">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="@Url.Action("Home")" style="color: whitesmoke;">RoyalDine&trade;</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="@Url.Action("Home")" style="color:white;">My Meal</a></li>
+                    @if (acc_type.Equals("m"))
+                    {
+                        <li><a href="@Url.Action("Home", "Manager")" style="color:white;">Manager</a></li>
+                    }
+                <li><a href="@Url.Action("ReportViewer")" style="color:white;">Statistics</a></li>
+                <li><a href="@Url.Action("Settings")" style="color:white;">Settings</a></li>
+                <li><a href="@Url.Action("Logout")" style="color:white;">Logout (@ViewBag.MemberName)</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row" id="msgTab">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <br />
+                <div class="alert alert-success">
+                    <b>@Html.Raw(ViewBag.MsgData)</b>
+                 </div>
+            </div>
+        </div>
+        <div class="row" id="mealTab">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h1>Today's Meal <span class="badge">@total</span></h1>
+                <hr />
+                <div style="padding-left:5px; padding-right:5px;">
+                    <p><b>Today: <span class="text-warning">@ViewBag.Date</span> </b></p>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="panel panel-info">
+                                <div class="panel panel-heading">
+                                    <h4>My Meal <span class="badge">@self</span></h4>
+                                </div>
+                                <div class="panel panel-body" style="padding-top:0px;">
+                                    @{
+                                        if (ViewBag.SelfResponse == "e")
+                                        {
+                                            <h4 class="text-danger">Something went wrong! Try again...</h4>
+                                        }
+                                        else
+                                        {
+                                            <p><b>Breakfast: <span class="text-danger">@ViewBag.SelfB</span></b></p>
+                                            <p><b>Lunch: <span class="text-danger">@ViewBag.SelfL</span></b></p>
+                                            <p><b>Dinner: <span class="text-danger">@ViewBag.SelfD</span></b></p>
+                                            <button class="btn btn-warning" data-toggle="modal" data-target="#mealEditor">Modify</button>
+                                            <a href="@Url.Action("Settings")" class="btn btn-danger">Meal Schedules</a>
+                                        }
+}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="panel panel-info">
+                                <div class="panel panel-heading">
+                                    <h4>Guest Meal <span class="badge">@guest</span></h4>
+                                </div>
+                                <div class="panel panel-body" style="padding-top:0px;">
+                                    @{
+                                        if (ViewBag.GuestResponse == "e")
+                                        {
+                                            <h4 class="text-danger">Something's went wrong! Try again...</h4>
+                                        }
+                                        else
+                                        {
+                                            if (guest < 1)
+                                            {
+                                                <h4 class="text-danger">Anyone's coming to home?</h4>
+                                                <button class="btn btn-danger" data-toggle="modal" data-target="#mealAdderGuest">Add guest meal</button>
+                                            }
+                                            else
+                                            {
+                                                <p><b>Breakfast: <span class="text-danger">@ViewBag.GuestB</span></b></p>
+                                                <p><b>Lunch: <span class="text-danger">@ViewBag.GuestL</span></b></p>
+                                                <p><b>Dinner: <span class="text-danger">@ViewBag.GuestD</span></b></p>
+                                                <button class="btn btn-success" data-toggle="modal" data-target="#mealAdderGuest">Add more</button>
+                                                <a class="btn btn-primary" href="@Url.Action("GuestViewer")">Details</a>
+                                            }
+                                        }
+}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center">
+        <hr />
+        <p class="text-muted">Copyright &copy; 2018 Sanvi Tech</p>
+    </footer>
+
+    <div class="modal fade" id="mealAdderGuest" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3>Add a guest meal</h3>
+                </div>
+                <div class="modal-body">
+                    @using (Ajax.BeginForm("AddGuestMeal", new AjaxOptions { OnSuccess = "serverResponse" }))
+                    {
+                        @Html.AntiForgeryToken()
+                    <div class="container" style="margin-left: 5%; margin-right: 5%;">
+                        <div class="hidden" id="alertBox"></div>
+                        <input type="checkbox" name="b" value="1"> Breakfast<br>
+                        <input type="checkbox" name="l" value="1"> Lunch<br>
+                        <input type="checkbox" name="d" value="1"> Dinner<br>
+                        <div class="text-center">
+                            <input type="submit" id="submitInfo" value="Add guest" class="btn btn-success" />
+                        </div>
+                    </div>
+                    }
+                    <script src="~/Scripts/response.js"></script>
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="mealEditor" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3>Modify my meal</h3>
+                </div>
+                <div class="modal-body">
+                    @using (Ajax.BeginForm("ModifySelfMeal", new AjaxOptions { OnSuccess = "serverResponse" }))
+                    {
+                        @Html.AntiForgeryToken()
+                    <div class="container" style="margin-left: 5%; margin-right: 5%;">
+                        <div class="hidden" id="alertBox"></div>
+                        @if (ViewBag.SelfB == "Yes")
+                        {
+                            <input type="checkbox" name="b" value="1" checked><span> Breakfast</span><br>
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="b" value="1"><span> Breakfast</span><br>
+                        }
+
+                        @if (ViewBag.SelfL == "Yes")
+                        {
+                            <input type="checkbox" name="l" value="1" checked><span> Lunch</span><br>
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="l" value="1"><span> Lunch</span><br>
+                        }
+
+                        @if (ViewBag.SelfD == "Yes")
+                        {
+                            <input type="checkbox" name="d" value="1" checked><span> Dinner</span><br>
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="d" value="1"><span> Dinner</span><br>
+                        }
+                        
+                        <input type="hidden" name="mealId" value="@ViewBag.MealID" />
+                        <div class="text-center">
+                            <input type="submit" id="submitInfo" value="Save Changes" class="btn btn-success" />
+                        </div>
+                    </div>
+                    }
+                    <script src="~/Scripts/response.js"></script>
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

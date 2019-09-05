@@ -1,0 +1,134 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <title>RoyalDine&trade; | Statistics</title>
+</head>
+<body>
+    @{
+        string acc_type = "u";
+    }
+    <nav class="nav navbar-default" style="background-color: maroon;">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#" style="color: whitesmoke;">RoyalDine&trade;</a>
+    </div>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#" style="color:white;">Home</a></li>
+            @{
+                if (acc_type.Equals("m"))
+                {
+                    <li><a href="#" style="color:white;">Manager</a></li>
+                }
+            }
+            <li><a href="#" style="color:white;">Stats</a></li>
+            <li><a href="#" style="color:white;">Settings</a></li>
+            <li><a href="#" style="color:white;">Logout</a></li>
+        </ul>
+    </div>
+    </nav>
+    <div class="container">      
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <h1>Statistics</h1>
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="form-group">
+                <select class="form-control">
+                    <option disabled selected>Select a month</option>
+                    <option>January</option>
+                    <option>February</option>
+                    <option>March</option>
+                    <option>April</option>
+                    <option>May</option>
+                    <option>June</option>
+                    <option>July</option>
+                    <option>August</option>
+                    <option>Sempetmber</option>
+                    <option>October</option>
+                    <option>November</option>
+                    <option>December</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-12">
+            <button class="btn btn-warning">Show</button>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="panel panel-info">
+                <div class="panel panel-heading">
+                    <h4>Info</h4>
+                </div>
+                <div class="panel panel-body" style="height: 180px;">
+                    <p><b>Total Meal: <span class="text-success">25</span></b></p>
+                    <p><b>Self: <span class="text-success">20</span></b></p>
+                    <p><b>Guest: <span class="text-success">5</span></b></p>
+                    <p><b>Total cost: <span class="text-danger">1500 tk</span></b></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="panel panel-info">
+                <div class="panel panel-heading">
+                    <h4>Additional Info</h4>
+                </div>
+                <div class="panel panel-body" style="height: 180px;">
+                    <p><b>Meal Rate: <span class="text-success">40 Tk / meal</span></b></p>
+                    <p><b>Service charge: <span class="text-success">200 Tk / person</span></b></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <h2>Details</h2>
+            <p><b>(The guest meals are added)</b></p>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <table class="table table-bordered">
+                <tr>
+                    <td><b>Date</b></td>
+                    <td><b>Breakfast</b></td>
+                    <td><b>Lunch</b></td>
+                    <td><b>Dinner</b></td>
+                    <td><b>Subtotal</b></td>
+                </tr>
+                <tr>
+                    <td>1-21-2018</td>
+                    <td>0</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>4</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    </div>
+    <footer class="text-center">
+        <hr />
+        <p class="text-muted">Copyright &copy; 2018 Sanvi Tech</p>
+    </footer>
+</body>
+</html>

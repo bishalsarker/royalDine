@@ -1,0 +1,135 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <title>RoyalDine&trade; | Settings</title>
+</head>
+<body>
+    @{
+        string acc_type = "u";
+    }
+    <nav class="nav navbar-default" style="background-color: maroon;">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" style="color: whitesmoke;">RoyalDine&trade;</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#" style="color:white;">Home</a></li>
+                @{
+                    if (acc_type.Equals("m"))
+                    {
+                        <li><a href="#" style="color:white;">Manager</a></li>
+                    }
+                }
+                <li><a href="#" style="color:white;">Stats</a></li>
+                <li><a href="#" style="color:white;">Settings</a></li>
+                <li><a href="#" style="color:white;">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Account Settings</h1>
+        <hr />
+        <h4>Personal Info</h4>
+        <table style="width: 25%">
+            <tr>
+                <td><b>Name: </b></td>
+                <td>Bishal Sarker</td>
+            </tr>
+            <tr>
+                <td><b>Username: </b></td>
+                <td>bsarker</td>
+            </tr>
+            <tr>
+                <td><b>Email: </b></td>
+                <td>b@bb.com</td>
+            </tr>
+        </table>
+        <br />
+        <h4>Options</h4>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#passwordEditor">Change password</button>
+        <button class="btn btn-danger">Delete account</button>
+        <br />
+        <h1>Meal Sceduler</h1>
+        <hr />
+        <table style="width: 25%">
+            <tr>
+                <td><p><b>Breakfast: <span class="text-danger">No</span></b></p></td>
+            </tr>
+            <tr>
+                <td><p><b>Lunch: <span class="text-danger">No</span></b></p></td>
+            </tr>
+            <tr>
+                <td><p><b>Dinner: <span class="text-success">Yes</span></b></p></td>
+            </tr>
+        </table>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#mealScheduler">Change Schedules</button>
+    </div>
+
+    <div class="modal fade" id="passwordEditor" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3>Change password</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="container" style="margin-left: 5%; margin-right: 5%;">
+                        <div class="alert alert-warning hidden" id="addInfoAlert"></div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Old Password" />
+                        </div>
+                        <div class="form-group">
+                            <input type="text"  class="form-control" placeholder="New Password" />
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Re-Type Password" />
+                        </div>
+                        <div class="text-center">
+                            <input type="button" id="submitInfo" value="Change password" class="btn btn-success" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="mealScheduler" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3>Scheduler</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="container" style="margin-left: 5%; margin-right: 5%;">
+                        <div class="alert alert-warning hidden" id="addInfoAlert"></div>
+                        <input type="checkbox" name="b" value="B"> Breakfast<br>
+                        <input type="checkbox" name="l" value="L"> Lunch<br>
+                        <input type="checkbox" name="d" value="D"> Dinner<br>
+                        <div class="text-center">
+                            <input type="button" id="submitInfo" value="Change" class="btn btn-success" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

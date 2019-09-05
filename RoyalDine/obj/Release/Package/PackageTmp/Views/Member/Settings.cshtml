@@ -1,0 +1,130 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <title>RoyalDine&trade; | Settings</title>
+</head>
+<body>
+    @{
+        string acc_type = @ViewBag.AccType;
+    }
+    <nav class="nav navbar-default" style="background-color: maroon;">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="@Url.Action("Home")" style="color: whitesmoke;">RoyalDine&trade;</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="@Url.Action("Home")" style="color:white;">My Meal</a></li>
+                @if (acc_type.Equals("m"))
+                {
+                    <li><a href="@Url.Action("Home", "Manager")" style="color:white;">Manager</a></li>
+                }
+                <li><a href="@Url.Action("ReportViewer")" style="color:white;">Statistics</a></li>
+                <li><a href="@Url.Action("Settings")" style="color:white;">Settings</a></li>
+                <li><a href="@Url.Action("Logout")" style="color:white;">Logout (@ViewBag.MemberName)</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Account Settings</h1>
+        <hr />
+        <h4>Personal Info</h4>
+        @Html.Raw(ViewBag.MemberInfo)
+        <button class="btn btn-primary" data-toggle="modal" data-target="#passwordEditor">Change password</button>
+        <button class="btn btn-danger">Delete account</button>
+        <br /><br />
+        <h1>Meal Scheduler</h1>
+        <hr />
+        <div id="mealSchedules">
+            @if (ViewBag.msResponse == "e")
+            {              
+            <h3>@ViewBag.msMsg</h3>
+            }
+            else
+            {
+            <table style="width: 25%">
+            <tr>
+                <td><p><b>Breakfast: <span class="text-danger">@ViewBag.B</span></b></p></td>
+            </tr>
+            <tr>
+                <td><p><b>Lunch: <span class="text-danger">@ViewBag.L</span></b></p></td>
+            </tr>
+            <tr>
+                <td><p><b>Dinner: <span class="text-danger">@ViewBag.D</span></b></p></td>
+            </tr>
+            </table>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#mealScheduler">Change Schedules</button>
+            }
+        </div>
+
+    <div class="modal fade" id="passwordEditor" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3>Change password</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="container" style="margin-left: 5%; margin-right: 5%;">
+                        <div class="alert alert-warning hidden" id="addInfoAlert"></div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Old Password" />
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="New Password" />
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Re-Type Password" />
+                        </div>
+                        <div class="text-center">
+                            <input type="button" id="submitInfo" value="Change password" class="btn btn-success" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="mealScheduler" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3>Meal Scheduler</h3>
+                </div>
+                <div class="modal-body">
+                    @using (Ajax.BeginForm("updateMealSchedule", new AjaxOptions { OnSuccess = "serverResponse" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="container" style="margin-left: 5%; margin-right: 5%;">
+                        <div class="hidden" id="alertBox"></div>
+                        @(Html.Raw(ViewBag.EditInfo))
+                        <div class="text-center">
+                            <input type="submit" id="submitInfo" value="Change" class="btn btn-success" />
+                        </div>
+                    </div>
+                    }
+                    <script src="~/Scripts/response.js"></script>
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

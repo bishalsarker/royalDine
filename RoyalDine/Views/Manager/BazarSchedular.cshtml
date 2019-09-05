@@ -1,0 +1,114 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <title>RoyalDine&trade; | Scheduler</title>
+</head>
+<body>
+    <nav class="nav navbar-default" style="background-color: maroon;">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="@Url.Action("Home", "Member")" style="color: whitesmoke;">RoyalDine&trade;</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="@Url.Action("Home", "Member")" style="color:white;">My Meal</a></li>
+                <li><a href="@Url.Action("Home")" style="color:white;">Manager</a></li>
+                <li><a href="@Url.Action("BazarSchedular")" style="color:white;">Schedules</a></li>
+                <li><a href="@Url.Action("ReportViewer")" style="color:white;">Statistics</a></li>
+                <li><a href="@Url.Action("Preferences")" style="color:white;">Preferences</a></li>
+                <li><a href="@Url.Action("Logout")" style="color:white;">Logout (@ViewBag.ManagerName)</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Bazar Schedules</h1>
+        <div class="row" id="scheduleList">
+            @if (ViewBag.ScheduleResponse == "e")
+            {
+                <div class="col-lg-5 col-md-12 col-sm-12">
+                    @Html.Raw(ViewBag.ScheduleData)
+                </div>
+            }
+            else
+            {
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#scheduler">Modify</button>
+                </div>
+                <br />
+                <div class="col-lg-5 col-md-12 col-sm-12">
+                    @Html.Raw(ViewBag.ScheduleData)
+                </div>
+            }
+        </div>
+    </div>
+    <br />
+    <br />
+    <footer class="text-center">
+        <hr />
+        <p class="text-muted">Copyright &copy; 2018 Sanvi Tech</p>
+    </footer>
+
+    <div class="modal fade" id="scheduler" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3>Modify Schedule</h3>
+                </div>
+                <div class="modal-body">
+                    @using (Ajax.BeginForm("ModifySchedule", new AjaxOptions { OnSuccess = "serverResponse"}))
+                    {
+                    @Html.AntiForgeryToken()
+                    <div class="container" style="margin-left: 5%; margin-right: 5%;">
+                        <div class="hidden" id="alertBox"></div>
+                        <div class="form-group">
+                            <p><b>Day</b></p>
+                            <select class="form-control" name="dayVal">
+                                <option selected disabled>Select a day</option>
+                                <option value="6">Saturday</option>
+                                <option value="0">Sunday</option>
+                                <option value="1">Monday</option>
+                                <option value="2">Tuesday</option>
+                                <option value="3">Wednesday</option>
+                                <option value="4">Thursday</option>
+                                <option value="5">Friday</option>
+                            </select>
+                            <br />
+
+                            <p><b>Member</b></p>
+                            <div class="form-group">
+                                <select class="form-control" name="memberId">
+                                    <option selected disabled>Select a member</option>
+                                    <option value="0">--</option>
+                                    @(Html.Raw(ViewBag.MemberListData))
+                                </select>
+                            </div>
+                            <div class="text-left">
+                                <input type="submit" id="submitInfo" value="Set Schedule" class="btn btn-success" />
+                            </div>
+                        </div>
+                    </div>
+                    }
+                    <div class="modal-footer"></div>
+                </div>
+                <script src="~/Scripts/response.js"></script>
+            </div>
+        </div>
+    </body>
+</html>

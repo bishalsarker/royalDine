@@ -1,0 +1,157 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <title>RoyalDine&trade; | Statistics</title>
+</head>
+<body>
+    @{
+        string acc_type = @ViewBag.AccType;
+    }
+    <nav class="nav navbar-default" style="background-color: maroon;">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="@Url.Action("Home")" style="color: whitesmoke;">RoyalDine&trade;</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="@Url.Action("Home")" style="color:white;">My Meal</a></li>
+                @if (acc_type.Equals("m"))
+                {
+                    <li><a href="@Url.Action("Home", "Manager")" style="color:white;">Manager</a></li>
+                }
+                <li><a href="@Url.Action("ReportViewer")" style="color:white;">Statistics</a></li>
+                <li><a href="@Url.Action("Settings")" style="color:white;">Settings</a></li>
+                <li><a href="@Url.Action("Logout")" style="color:white;">Logout (@ViewBag.MemberName)</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h1>Statistics</h1>
+                <hr />
+            </div>
+        </div>
+        <div class="row">
+            @using (Html.BeginForm("ReportViewer", "Member", FormMethod.Get))
+            {
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="form-group">
+                    <select class="form-control" name="m">
+                        <option disabled selected>Select a month</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">Sempetmber</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-12">
+                <div class="form-group">
+                    <select class="form-control" name="y">
+                        <option disabled selected>Select an year</option>
+                        <option value="2018">2018</option>
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                        <option value="2029">2029</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <button class="btn btn-warning">Show</button>
+            </div>
+            }
+        </div>
+        <br />
+        <div id="stats">
+            @if (ViewBag.ReportResponse == "e")
+            {
+                <h2 class="text-danger">Something went wrong! Try again...</h2>
+            }
+            else
+            {
+                <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <p class="text-success"><b>Showing:<span class="text-danger"> @ViewBag.Showing</span></b></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="panel panel-info">
+                    <div class="panel panel-heading">
+                        <h4>Meal Info</h4>
+                    </div>
+                    <div class="panel panel-body" style="height: 180px;">
+                        @Html.Raw(ViewBag.Info)
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="panel panel-info">
+                    <div class="panel panel-heading">
+                        <h4>Cost Info</h4>
+                    </div>
+                    <div class="panel panel-body" style="height: 180px;">
+                        @Html.Raw(ViewBag.CostInfo)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h2>Details</h2>
+                <p><b>(Guest meals are added)</b></p>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <table class="table table-bordered">
+                    <tr>
+                        <td><b>Date</b></td>
+                        <td><b>Breakfast</b></td>
+                        <td><b>Lunch</b></td>
+                        <td><b>Dinner</b></td>
+                        <td><b>Subtotal</b></td>
+                    </tr>
+                    @Html.Raw(ViewBag.Details)
+                </table>
+            </div>
+        </div>
+            }
+        </div>
+    </div>
+    <footer class="text-center">
+        <hr />
+        <p class="text-muted">Copyright &copy; 2018 Sanvi Tech</p>
+    </footer>
+</body>
+</html>

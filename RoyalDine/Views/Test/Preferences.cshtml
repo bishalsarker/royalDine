@@ -1,0 +1,91 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <title>RoyalDine&trade; | Preferences</title>
+</head>
+<body>
+    <nav class="nav navbar-default" style="background-color: maroon;">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" style="color: whitesmoke;">RoyalDine&trade;</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#" style="color:white;">Home</a></li>
+                <li><a href="#" style="color:white;">Schedules</a></li>
+                <li><a href="#" style="color:white;">Stats</a></li>
+                <li><a href="#" style="color:white;">Preferences</a></li>
+                <li><a href="#" style="color:white;">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Preferences</h1>
+        <hr />
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#prefEdit">Modify</button>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-12">
+                <table style="width: 100%;">
+                    <tr>
+                        <td><b>Meal Rate/person: </b></td>
+                        <td>40 tk</td>
+                    </tr>
+                    <tr>
+                        <td><b>Service Charge/person: </b></td>
+                        <td>300 tk</td>
+                    </tr>
+                </table>
+            </div>  
+        </div>       
+        <br />
+    </div>
+
+    <div class="modal fade" id="prefEdit" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3>Change password</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="container" style="margin-left: 5%; margin-right: 5%;">
+                        <div class="alert alert-warning hidden" id="addInfoAlert"></div>
+                        <div class="form-group">
+                            <p><b>Meal Rate / p</b></p>
+                            <input type="text" class="form-control" placeholder="Numbers only" />
+                        </div>
+                        <div class="form-group">
+                            <p><b>Service Chrage / p</b></p>
+                            <input type="text" class="form-control" placeholder="Numbers only" />
+                        </div>
+                        <div class="text-center">
+                            <input type="button" id="submitInfo" value="Update" class="btn btn-success" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

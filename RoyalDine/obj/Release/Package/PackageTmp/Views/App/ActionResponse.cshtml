@@ -1,0 +1,33 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <title>RoyalDine&trade; | @ViewBag.ResponseType</title>
+</head>
+<body>
+    <nav class="nav navbar-default" style="background-color: maroon; color: whitesmoke; ">
+        <div class=" navbar-header">
+            <a href="@Url.Action("Index")" class="navbar-brand" style="color: whitesmoke;">
+                <h4>RoyalDine&trade;</h4>
+            </a>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-12 col-sm-12 col-md-12">
+                <h1>@ViewBag.Msg</h1>
+                <p><a href="@ViewBag.ActionLink">@ViewBag.ActionTxt</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

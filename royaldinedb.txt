@@ -1,0 +1,62 @@
+--tables
+CREATE TABLE admin(
+	id int IDENTITY(1,1) PRIMARY KEY,
+	username VARCHAR(MAX) NOT NULL,
+	password VARCHAR(MAX) NOT NULL,
+);
+CREATE TABLE bazarschedules(
+	day VARCHAR(50) NOT NULL,
+	memberId VARCHAR(MAX) NOT NULL
+);
+CREATE TABLE guestmeals(
+	id int IDENTITY(1,1) PRIMARY KEY,
+	breakfast VARCHAR(50) NOT NULL,
+	lunch VARCHAR(50) NOT NULL,
+	dinner VARCHAR(50) NOT NULL,
+	memberId VARCHAR(50) NOT NULL,
+	date VARCHAR(100) NOT NULL
+);
+CREATE TABLE mealschedulerlog(
+	date VARCHAR(50) NOT NULL,
+	checked VARCHAR(50) NOT NULL
+);
+CREATE TABLE preferences(
+	id int IDENTITY(1,1) PRIMARY KEY,
+	mealrate VARCHAR(50) NOT NULL,
+	servicecharge VARCHAR(50) NOT NULL
+);
+CREATE TABLE selfmeals(
+	id int IDENTITY(1,1) PRIMARY KEY,
+	breakfast VARCHAR(50) NOT NULL,
+	lunch VARCHAR(50) NOT NULL,
+	dinner VARCHAR(50) NOT NULL,
+	memberId VARCHAR(50) NOT NULL,
+	date VARCHAR(100) NOT NULL
+);
+CREATE TABLE settings(
+	id int IDENTITY(1,1) PRIMARY KEY,
+	breakfast VARCHAR(50) NOT NULL,
+	lunch VARCHAR(50) NOT NULL,
+	dinner VARCHAR(50) NOT NULL,
+	memberId VARCHAR(50) NOT NULL,
+);
+CREATE TABLE users(
+	id int IDENTITY(1,1) PRIMARY KEY,
+	fullname VARCHAR(MAX) NOT NULL,
+	username VARCHAR(MAX) NOT NULL,
+	password VARCHAR(MAX) NOT NULL,
+	acctype VARCHAR(50) NOT NULL
+);
+
+--default values
+INSERT INTO admin(username, password) VALUES ('alpha','omega');
+INSERT INTO mealschedulerlog(date, checked) VALUES ('22/02/2018', '1');
+INSERT INTO preferences(mealrate, servicecharge) VALUES ('0','0');
+
+INSERT INTO bazarschedules(day, memberId) VALUES ('6','0');
+INSERT INTO bazarschedules(day, memberId) VALUES ('0','0');
+INSERT INTO bazarschedules(day, memberId) VALUES ('1','0');
+INSERT INTO bazarschedules(day, memberId) VALUES ('2','0');
+INSERT INTO bazarschedules(day, memberId) VALUES ('3','0');
+INSERT INTO bazarschedules(day, memberId) VALUES ('4','0');
+INSERT INTO bazarschedules(day, memberId) VALUES ('5','0');

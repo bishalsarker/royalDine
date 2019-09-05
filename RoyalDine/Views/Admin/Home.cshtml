@@ -1,0 +1,70 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <title>RoyalDine&trade; | Admin</title>
+</head>
+<body>
+    <nav class="nav navbar-default" style="background-color: maroon;">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="@Url.Action("Home")" style="color: whitesmoke;">RoyalDine&trade;</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="@Url.Action("Home")" style="color:white;">Home</a></li>
+                <li><a href="@Url.Action("Settings")" style="color:white;">Settings</a></li>
+                <li><a href="@Url.Action("Logout")" style="color:white;">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Members</h1>
+        <div class="row">
+            <hr />
+            @if (ViewBag.Response == "e")
+            {
+                <h2 class="text-danger">Something went wrong! Try again...</h2>
+            }
+            else if (ViewBag.DataCount < 1)
+            {
+                <h2 class="text-danger">No members yet!</h2>
+            }
+            else
+            {
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td><b>Name</b></td>
+                            <td><b>Options</b></td>
+                        </tr>
+                        @Html.Raw(ViewBag.Data)
+                    </table>
+                    <script src="~/Scripts/response.js"></script>
+                </div>
+            }
+        </div>
+    </div>
+    <br />
+    <br />
+    <footer class="text-center">
+        <hr />
+        <p class="text-muted">Copyright &copy; 2018 Sanvi Tech</p>
+    </footer>
+</body>
+</html>

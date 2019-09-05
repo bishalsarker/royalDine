@@ -1,0 +1,81 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <title>RoyalDine&trade; | Registration</title>
+</head>
+<body>
+    <nav class="nav navbar-default" style="background-color: maroon; color: whitesmoke; ">
+        <div class=" navbar-header">
+            <a href="@Url.Action("Index")" class="navbar-brand" style="color: whitesmoke;">
+                <h4>RoyalDine&trade;</h4>
+            </a>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            @using (Ajax.BeginForm("Registration", new AjaxOptions { OnSuccess = "serverResponse" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="col-lg-6 col-md-6 col-sm-12" style="padding: 30px;">
+                <h3 class="text-muted">Sign up to RoyalDine&trade;</h3>
+                <div class="panel panel-info">
+                    <div class="panel-body" style="padding: 30px;">
+                        <div class="hidden" id="alertBox"></div>
+                        <div class=" form-group">
+                            <input type="text" name="Un" class="form-control" placeholder="Fullname" />
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="Uu" class="form-control" placeholder="Username" />
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="Up" class="form-control" placeholder="Password" />
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="Pr" class="form-control" placeholder="Retype-Password" />
+                        </div>
+                        <input type="submit" class="btn btn-success" value="Register" />
+                    </div>
+                </div>
+            </div> 
+            }
+            <script src="~/Scripts/reg.js"></script>
+            <script>
+                function rediectToLogin() {
+                    window.location.href = "@Url.Action("UserLogin")";
+                }
+            </script>
+        </div>
+    </div>
+    <footer class="text-center">
+        <hr />
+        <p class="text-muted">Copyright &copy; 2018 Sanvi Tech</p>
+    </footer>
+
+    <div class="modal fade" id="cnfm" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3>Registration</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="container" style="margin-left: 5%; margin-right: 5%;">
+                        <div id="cnfmBox"></div>                       
+                    </div>
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

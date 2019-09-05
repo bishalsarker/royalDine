@@ -1,0 +1,107 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <title>RoyalDine&trade; | Guest Details</title>
+</head>
+<body>
+    @{
+        string acc_type = "u";
+        string b = "Y";
+        string l = "N";
+        string d = "N";
+    }
+    <nav class="nav navbar-default" style="background-color: maroon;">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" style="color: whitesmoke;">RoyalDine&trade;</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#" style="color:white;">Home</a></li>
+                @{
+                    if (acc_type.Equals("m"))
+                    {
+                        <li><a href="#" style="color:white;">Manager</a></li>
+                    }
+                }
+                <li><a href="#" style="color:white;">Stats</a></li>
+                <li><a href="#" style="color:white;">Settings</a></li>
+                <li><a href="#" style="color:white;">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Guest Details</h1>
+        <br />
+        <table class="table table-bordered">
+            <tr>
+                <td><b>#</b></td>
+                <td><b>Breakfast</b></td>
+                <td><b>Lunch</b></td>
+                <td><b>Dinner</b></td>
+                <td><b>Options</b></td>
+            </tr>
+            <tr>
+                <td><b>1</b></td>
+                <td>
+                    @{
+                        if (b == "Y")
+                        {
+                            <p class="text-success">Y</p>
+                        }
+                        else
+                        {
+                            <p class="text-danger">N</p>
+                        }
+                    }
+                </td>
+                <td>
+                    @{
+                        if (l == "Y")
+                        {
+                            <p class="text-success">Y</p>
+                        }
+                        else
+                        {
+                            <p class="text-danger">N</p>
+                        }
+                    }
+                </td>
+                <td>
+                    @{
+                        if (d == "Y")
+                        {
+                            <p class="text-success">Y</p>
+                        }
+                        else
+                        {
+                            <p class="text-danger">N</p>
+                        }
+                    }
+                </td>
+                <td>
+                    <button class="btn btn-success">Modify</button>
+                    <button class="btn btn-danger">Delete</button>
+                </td>
+            </tr>
+        </table>
+        <p class="text-center"><a href="../Test/MemberPage">Back to home</a></p>
+    </div>
+</body>
+</html>

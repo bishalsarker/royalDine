@@ -1,0 +1,53 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <title>RoyalDine&trade; | User Login</title>
+</head>
+<body>
+    <div class="jumbotron text-center" style="background-color: maroon; color: whitesmoke;">
+        <h1>RoyalDine&trade;</h1>
+        <p>A smart solution for managing meal!</p>
+    </div>
+    <div class="container" style="margin-left: 20%; margin-right: 20%;">
+        <div class="row">
+            <div class="col-sm-3" style="padding-right: 30px;"></div>
+            @using (Html.BeginForm("UserLogin"))
+            {
+            @Html.AntiForgeryToken()
+            <div class="col-sm-6" style="padding-left: 30px; padding-top: 10px;">
+                @Html.ActionLink("Switch to admin", "AdminLogin")
+                <h3 class="text-muted">User login</h3>
+                <div class="form-group">
+                    <input type="text" name="Uu" class="form-control" placeholder="Username" />
+                </div>
+                <div class="form-group">
+                    <input type="password" name="Up" class="form-control" placeholder="Password" />
+                </div>
+                <input type="submit" class="btn btn-danger" value="Login" />
+            </div>
+            }
+            <div class="col-sm-3" style="padding-right: 30px;"></div>
+        </div>
+        <br />
+        <div class="row">
+            <h3 class="text-center text-success">
+                Not registered? @Html.ActionLink("Register", "Registration") today!
+            </h3>
+        </div>
+    </div>
+    <footer class="text-center">
+        <hr />
+        <p class="text-muted">Copyright &copy; 2018 Sanvi Tech</p>
+    </footer>
+</body>
+</html>
